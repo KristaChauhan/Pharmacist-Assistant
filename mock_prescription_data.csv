@@ -1,0 +1,6 @@
+Prescription_ID,Patient_Name,Medicine_Name,Dosage,Frequency,Doctor_Name
+1,John Doe,Paracetamol,500mg,Twice a day,Dr. A
+2,Jane Smith,Ibuprofen,200mg,Once a day,Dr. B
+3,Alice Brown,Amoxicillin,250mg,Thrice a day,Dr. C
+4,Bob White,Cetirizine,10mg,Once a day,Dr. D
+5,Charlie Green,Metformin,500mg,Twice a day,Dr. E
