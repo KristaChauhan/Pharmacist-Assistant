@@ -7,7 +7,7 @@ import os
 
 app = Flask(__name__)
 
-# Database setup
+
 def init_db():
     conn = sqlite3.connect('prescriptions.db')
     c = conn.cursor()
@@ -18,15 +18,15 @@ def init_db():
 
 init_db()
 
-# Function to extract text from image
+
 def extract_text(image_path):
     image = Image.open(image_path)
     text = pytesseract.image_to_string(image)
     return text
 
-# AI function to validate prescription using OpenAI API
+
 def validate_prescription(text):
-    openai.api_key = "your-openai-api-key"  # Replace with your OpenAI API key
+    openai.api_key = "your-openai-api-key" 
     response = openai.ChatCompletion.create(
         model="gpt-4",
         messages=[{"role": "system", "content": "Validate and correct medicine names in the given prescription."},
@@ -34,12 +34,12 @@ def validate_prescription(text):
     )
     return response['choices'][0]['message']['content'].strip()
 
-# Home route
+
 @app.route('/')
 def home():
     return render_template('index.html')
 
-# Upload and process prescription
+
 @app.route('/upload', methods=['POST'])
 def upload():
     if 'file' not in request.files:
@@ -54,7 +54,7 @@ def upload():
     extracted_text = extract_text(filepath)
     validated_text = validate_prescription(extracted_text)
     
-    # Save to database
+ 
     conn = sqlite3.connect('prescriptions.db')
     c = conn.cursor()
     c.execute("INSERT INTO prescriptions (text) VALUES (?)", (validated_text,))
@@ -64,5 +64,5 @@ def upload():
     return jsonify({'extracted_text': extracted_text, 'validated_text': validated_text})
 
 if __name__ == '__main__':
-    os.makedirs('data', exist_ok=True)  # Ensure data directory exists
+    os.makedirs('data', exist_ok=True)  
     app.run(debug=True)
